@@ -39,7 +39,7 @@ const app = new express();
 app.use(express.json()) // Informar que neste projeto, sera usado json como parametros de respostas
 
 app.use(cors({
-    origin: "http://localhost:3007", // ajuste conforme sua origem
+    origin: "http://127.0.0.1:3007", // ajuste conforme sua origem
     credentials: true
   }))
 

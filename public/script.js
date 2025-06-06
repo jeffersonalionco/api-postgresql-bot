@@ -1,4 +1,4 @@
-const URL_DB = "localhost:3007"
+const URL_DB = "127.0.0.1:3007"
 const token = localStorage.getItem('token');
 
 function togglePassword() {
