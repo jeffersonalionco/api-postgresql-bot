@@ -1,0 +1,62 @@
+
+
+## SCHEMA BANCO SQL
+CREATE DATABASE socialj
+    WITH
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'pt-BR'
+    LC_CTYPE = 'pt-BR'
+    LOCALE_PROVIDER = 'libc'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1
+    IS_TEMPLATE = False;
+
+
+    CREATE TABLE IF NOT EXISTS public.informacao_bot
+(
+    id integer NOT NULL DEFAULT nextval('informacao_bot_id_seq'::regclass),
+    id_useradmin integer,
+    id_botwhatsapp character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    nome character varying(50) COLLATE pg_catalog."default" NOT NULL DEFAULT 'Social J'::character varying,
+    numero character varying(30) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT informacao_bot_pkey PRIMARY KEY (id),
+    CONSTRAINT informacao_bot_id_useradmin_fkey FOREIGN KEY (id_useradmin)
+        REFERENCES public.useradmin (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+
+
+
+CREATE TABLE IF NOT EXISTS public.useradmin
+(
+    id integer NOT NULL DEFAULT nextval('useradmin_id_seq'::regclass),
+    nome character varying(60) COLLATE pg_catalog."default" NOT NULL,
+    email character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    numerobot character varying(20) COLLATE pg_catalog."default" NOT NULL,
+    senha character varying(40) COLLATE pg_catalog."default" NOT NULL,
+    created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    token text COLLATE pg_catalog."default",
+    tokenbot text COLLATE pg_catalog."default" DEFAULT 'Sem Token'::text,
+    qtd_request bigint DEFAULT 1,
+    CONSTRAINT useradmin_pkey PRIMARY KEY (id),
+    CONSTRAINT useradmin_email_key UNIQUE (email)
+)
+
+TABLESPACE pg_default;
+
+
+CREATE TABLE IF NOT EXISTS public.usuarios
+(
+    id integer NOT NULL DEFAULT nextval('usuarios_id_seq'::regclass),
+    nome text COLLATE pg_catalog."default" NOT NULL,
+    numero text COLLATE pg_catalog."default" NOT NULL,
+    idwhasapp text COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT usuarios_pkey PRIMARY KEY (id)
+)
+
+TABLESPACE pg_default;
